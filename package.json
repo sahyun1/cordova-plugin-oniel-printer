@@ -1,0 +1,25 @@
+{
+  "name": "cordova-plugin-oneil-printer",
+  "version": "1.0.0",
+  "description": "Android Oniel Printer Plugin",
+  "cordova": {
+    "id": "cordova-plugin-oneil-printer",
+    "platforms": [
+      "android"
+    ]
+  },
+  "keywords": [
+    "android",
+    "toast",
+    "ecosystem:cordova",
+    "cordova-android"
+  ],
+  "engines": [
+    {
+      "name": "cordova",
+      "version": ">=3.0.0"
+    }
+  ],
+  "author": "megatdaharus",
+  "license": "Apache 2.0"
+}
