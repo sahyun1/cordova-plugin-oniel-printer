@@ -11,13 +11,6 @@ var OnielPrinter = {
         }
         return false;
     },
-
-    connect: function (onSuccess, onError) {
-        exec(onSuccess, onError, 'OnielPrinter', 'connect');
-    },
-    disconnect: function (onSuccess, onError) {
-        exec(onSuccess, onError, 'OnielPrinter', 'disconnect', []);
-    },
     printText: function (text, onSuccess, onError) {
         exec(onSuccess, onError, 'OnielPrinter', 'printText', [text]);
     },

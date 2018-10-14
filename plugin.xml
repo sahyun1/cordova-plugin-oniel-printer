@@ -15,19 +15,20 @@
     </js-module>
 
     <platform name="android">
-        <config-file target="config.xml" parent="/*">
-            <feature name="OnielPrinter">
-                <param name="android-package" value="com.megatdaharus.OnielPrinter" />
-            </feature>
-        </config-file>
-
         <config-file target="AndroidManifest.xml" parent="/*">
             <uses-permission android:name="android.permission.BLUETOOTH" />
             <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
-            <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+            <permission android:name="android.permission.BLUETOOTH" android:label="BLUETOOTH" />
+            <permission android:name="android.permission.BLUETOOTH_ADMIN" />
         </config-file>
 
-        <source-file src="src/android/OneilSDK.jar" target-dir="libs" framework="true" />
-        <source-file src="src/android/OnielPrinter.java" target-dir="src/com/megatdaharus/oniel-printer" />
+        <config-file target="config.xml" parent="/*">
+            <feature name="OnielPrinter">
+                <param name="android-package" value="com.megatdaharus.onielprinter.OnielPrinter" />
+            </feature>
+        </config-file>
+
+        <source-file src="src/android/OnielPrinter.java" target-dir="src/com/megatdaharus/onielprinter" />
+        <lib-file src="src/android/libs/do_androidsdk.jar" />
     </platform>
 </plugin>
