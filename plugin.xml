@@ -11,7 +11,7 @@
     </engines>
 
     <js-module name="OnielPrinter" src="www/OnielPrinter.js">
-        <clobbers target="OnielPrinter" />
+        <clobbers target="cordova.plugins.onielPrinter" />
     </js-module>
 
     <platform name="android">

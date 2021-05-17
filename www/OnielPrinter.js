@@ -11,8 +11,14 @@ var OnielPrinter = {
         }
         return false;
     },
+    setLandscape: function (isLandscape, onSuccess, onError) {
+        exec(onSuccess, onError, 'OnielPrinter', 'setLandscape', [isLandscape]);
+    },
     printText: function (text, onSuccess, onError) {
         exec(onSuccess, onError, 'OnielPrinter', 'printText', [text]);
+    },
+    printTextObj: function (obj, onSuccess, onError) {
+        exec(onSuccess, onError, 'OnielPrinter', 'printTextObj', obj);
     },
     printBarcode: function (type, data, onSuccess, onError) {
         exec(onSuccess, onError, 'OnielPrinter', 'printBarcode', [type, data]);
