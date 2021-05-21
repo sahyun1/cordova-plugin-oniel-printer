@@ -73,8 +73,10 @@ public class OnielPrinter extends CordovaPlugin {
       if (pairedDevices.size() > 0) {
         for (BluetoothDevice device : pairedDevices) {
           address = device.getAddress();
+          System.out.println("name is " + device.getName());
         }
       }
+
     }
 
     return address;
@@ -235,25 +237,32 @@ public class OnielPrinter extends CordovaPlugin {
     try {
       conn = Connection_Bluetooth.createClient(address);
       conn.open();
-      ParametersEZ parameter = new ParametersEZ();
-      parameter.setFont("MF102");
 
       docEZ = new DocumentEZ("MF204");
       docEZ.setIsLandscapeMode(true);
 
-      int startCol = 200;
-
       for (int i = 0; i < obj.length(); i++) {
         JSONObject exploreObject = obj.getJSONObject(i); // you will get the json object
-        if(exploreObject.has("param") && exploreObject.getString("param").equals("bold")) {
-          docEZ.writeText(exploreObject.getString("label"),exploreObject.getInt("row"),exploreObject.getInt("col") + startCol, parameter);
+        if(exploreObject.has("param")) {
+
+          ParametersEZ parameter = new ParametersEZ();
+          if(exploreObject.getString("param").contains("bold")) {
+            parameter.setFont("MF102");
+          }
+          if(exploreObject.getString("param").contains("align_right")) {
+            parameter.setAlignment(ParametersEZ.Alignment.Right);
+          }
+          docEZ.writeText(exploreObject.getString("label"),exploreObject.getInt("row"),exploreObject.getInt("col"), parameter);
+
         }
         else {
-          docEZ.writeText(exploreObject.getString("label"),exploreObject.getInt("row"),exploreObject.getInt("col") + startCol);
+          docEZ.writeText(exploreObject.getString("label"),exploreObject.getInt("row"),exploreObject.getInt("col"));
         }
 
       }
 
+      // to give buffer to roll the paper to the end
+      docEZ.writeText("  ", 200, 1500);
       conn.write(docEZ.getDocumentData());
       conn.close();
       progress.dismiss();
