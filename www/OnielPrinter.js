@@ -1,6 +1,7 @@
 var exec = require('cordova/exec');
 var OnielPrinter = {
     platforms: ['android'],
+	
 
     isSupported: function () {
         if (window.device) {
