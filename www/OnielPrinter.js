@@ -11,7 +11,8 @@ var OnielPrinter = {
         }
         return false;
     },
-    setLandscape: function (isLandscape, onSuccess, onError) {
+
+    setLandscape: function(isLandscape, onSuccess, onError) {
         exec(onSuccess, onError, 'OnielPrinter', 'setLandscape', [isLandscape]);
     },
     printText: function (text, onSuccess, onError) {

@@ -6,15 +6,19 @@ import org.apache.cordova.CordovaInterface;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.json.JSONException;
-
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Handler;
+import android.util.Base64;
 import android.widget.Toast;
 import android.util.Log;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothSocket;
+
+import java.io.ByteArrayInputStream;
 import java.util.Set;
 
 import datamaxoneil.connection.ConnectionBase;
@@ -82,6 +86,27 @@ public class OnielPrinter extends CordovaPlugin {
     return address;
   }
 
+  private void getPairedDevices(CallbackContext callbackContext){
+//    String address = "";
+//    BluetoothAdapter mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+//
+//    if(mBluetoothAdapter == null){
+//      address = "Device does not support bluetooth";
+//    } else {
+//      Set<BluetoothDevice> pairedDevices = mBluetoothAdapter.getBondedDevices();
+//
+//
+//      if (pairedDevices.size() > 0) {
+//        for (BluetoothDevice device : pairedDevices) {
+//          address = device.getAddress();
+//          System.out.println("name is " + device.getName());
+//        }
+//      }
+//
+//    };
+//    callbackContext.success(pairedDevices);
+  }
+
   private void setLandscape(boolean isLandscape, CallbackContext callbackContext) {
     docEZ = new DocumentEZ("!");
     docEZ.setIsLandscapeMode(isLandscape);
@@ -97,12 +122,42 @@ public class OnielPrinter extends CordovaPlugin {
     }
   }
 
+  private Bitmap decodeToImage(String imageString) {
+    byte[] decodedBytes = Base64.decode(
+      imageString.substring(imageString.indexOf(",")  + 1),
+      Base64.DEFAULT
+    );
+
+    return BitmapFactory.decodeByteArray(decodedBytes, 0, decodedBytes.length);
+}
+
   private void printImage(String msg, CallbackContext callbackContext) {
     if (msg == null || msg.length() == 0) {
       callbackContext.error("Empty Image!");
     } else {
-      Toast.makeText(webView.getContext(), "printImage: " + msg, Toast.LENGTH_SHORT).show();
-      callbackContext.success(msg);
+      Bitmap image = decodeToImage(msg);
+
+      String address = getMacAddress();
+
+     try {
+       conn = Connection_Bluetooth.createClient(address);
+       //conn = Connection_Bluetooth.createClient(address);
+       conn.open();
+       docLP = new DocumentLP("!");
+       docLP.setIsLandscapeMode(true);
+       docLP.writeImage(image, 384);
+       conn.write(docLP.getDocumentData());
+       conn.close();
+     }
+     catch (Exception e) {
+      if(conn != null) {
+        conn.close();
+        e.printStackTrace();
+      }
+
+      // Toast.makeText(webView.getContext(), "printImage: " + msg, Toast.LENGTH_SHORT).show();
+      // callbackContext.success(msg);
+      }
     }
   }
 
