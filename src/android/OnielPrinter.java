@@ -159,7 +159,6 @@ public class OnielPrinter extends CordovaPlugin {
 
       try {
         conn = Connection_Bluetooth.createClient(address);
-        //conn = Connection_Bluetooth.createClient(address);
         conn.open();
         docLP = new DocumentLP("!");
 //       docLP.setIsLandscapeMode(true);
@@ -339,11 +338,13 @@ public class OnielPrinter extends CordovaPlugin {
       conn.write(docEZ.getDocumentData());
       conn.close();
       progress.dismiss();
+      callbackContext.success("Print done");
 
     } catch (Exception e) {
       if(conn != null) {
         conn.close();
         e.printStackTrace();
+        callbackContext.error("unable to print");
       }
     }
 
