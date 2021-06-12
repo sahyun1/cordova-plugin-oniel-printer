@@ -24,11 +24,11 @@
 
         <config-file target="config.xml" parent="/*">
             <feature name="OnielPrinter">
-                <param name="android-package" value="com.megatdaharus.onielprinter.OnielPrinter" />
+                <param name="android-package" value="com.sahyun1.onielprinter.OnielPrinter" />
             </feature>
         </config-file>
 
-        <source-file src="src/android/OnielPrinter.java" target-dir="src/com/megatdaharus/onielprinter" />
+        <source-file src="src/android/OnielPrinter.java" target-dir="src/com/sahyun1/onielprinter" />
         <lib-file src="src/android/libs/do_androidsdk.jar" />
     </platform>
 </plugin>
