@@ -249,7 +249,7 @@ public class OnielPrinter extends CordovaPlugin {
           if(exploreObject.getString("param").contains("bold")) {
             parameter.setFont("MF102");
           }
-          if(exploreObject.getString("param").contains("align_right")) {
+          if(exploreObject.getString("param").contains("align-right")) {
             parameter.setAlignment(ParametersEZ.Alignment.Right);
           }
           docEZ.writeText(exploreObject.getString("label"),exploreObject.getInt("row"),exploreObject.getInt("col"), parameter);
