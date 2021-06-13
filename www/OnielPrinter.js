@@ -18,8 +18,8 @@ var OnielPrinter = {
     printText: function (text, onSuccess, onError) {
         exec(onSuccess, onError, 'OnielPrinter', 'printText', [text]);
     },
-    printTextObj: function (obj, printerAddress, onSuccess, onError) {
-        exec(onSuccess, onError, 'OnielPrinter', 'printTextObj', [obj, printerAddress]);
+    printTextObj: function (obj, printerAddress, isLandscape, onSuccess, onError) {
+        exec(onSuccess, onError, 'OnielPrinter', 'printTextObj', [obj, printerAddress, isLandscape]);
     },
     getPairedDevices: function (onSuccess, onError) {
         exec(onSuccess, onError, 'OnielPrinter', 'getPairedDevices');
