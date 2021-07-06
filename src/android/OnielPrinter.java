@@ -58,7 +58,7 @@ public class OnielPrinter extends CordovaPlugin {
       return true;
     }
     else if ("printTextObj".equals(action)) {
-      printTextObj(args.getJSONArray(0), args.getString(1), callbackContext);
+      printTextObj(args.getJSONArray(0), args.getString(1), args.getBoolean(2), callbackContext);
       return true;
     }
 
@@ -295,7 +295,7 @@ public class OnielPrinter extends CordovaPlugin {
     pdCanceller.postDelayed(progressRunnable, 3000);
   }
 
-  private void printTextObj(JSONArray printTextObj, String address, CallbackContext callbackContext) {
+  private void printTextObj(JSONArray printTextObj, String address, Boolean isLandscape, CallbackContext callbackContext) {
      final ProgressDialog progress = new ProgressDialog(webView.getContext());
      progress.setTitle("Connecting");
      progress.setMessage("Please wait while we connect to devices...");
@@ -308,7 +308,7 @@ public class OnielPrinter extends CordovaPlugin {
       conn.open();
 
       docEZ = new DocumentEZ("MF204");
-      //docEZ.setIsLandscapeMode(true);
+      docEZ.setIsLandscapeMode(isLandscape);
 
       for (int i = 0; i < printTextObj.length(); i++) {
         JSONObject exploreObject = printTextObj.getJSONObject(i); // you will get the json object
@@ -321,7 +321,7 @@ public class OnielPrinter extends CordovaPlugin {
           if(exploreObject.getString("param").contains("align-right")) {
             parameter.setAlignment(ParametersEZ.Alignment.Right);
           }
-          if(exploreObject.getString("param").contains("align_center")) {
+          if(exploreObject.getString("param").contains("align-center")) {
             parameter.setAlignment(ParametersEZ.Alignment.Center);
           }
           docEZ.writeText(exploreObject.getString("label"),exploreObject.getInt("row"),exploreObject.getInt("col"), parameter);
