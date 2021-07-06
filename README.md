@@ -36,6 +36,22 @@ declare let cordova: any;
 
 ```
 
+### set to landscape mode
+```javascript
+
+setLandscape: function(isLandscape, onSuccess, onError) {
+        exec(onSuccess, onError, 'OnielPrinter', 'setLandscape', [isLandscape]);
+    },
+```
+
+### print single line of text
+```javascript
+
+    printText: function (text, onSuccess, onError) {
+        exec(onSuccess, onError, 'OnielPrinter', 'printText', [text]);
+    },
+```
+
 ### Print multiple lines
 ```javascript
 type Line = {
@@ -46,5 +62,21 @@ type Line = {
 }
 
 
-cordova.plugins.bixolonPrint.printTextObj(obj: Lines[], printerAddress, isLandscape, onSuccess, onError);
+cordova.plugins.bixolonPrint.printTextObj(obj: Line[], printerAddress, isLandscape, onSuccess, onError);
+```
+
+###Print barcode
+```javascript
+
+    printBarcode: function (type, data, onSuccess, onError) {
+        exec(onSuccess, onError, 'OnielPrinter', 'printBarcode', [type, data]);
+    },
+```
+
+### Get the paired devices
+```javascript
+
+getPairedDevices: function (onSuccess, onError) {
+        exec(onSuccess, onError, 'OnielPrinter', 'getPairedDevices');
+    },
 ```
