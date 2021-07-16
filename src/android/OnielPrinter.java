@@ -343,9 +343,9 @@ public class OnielPrinter extends CordovaPlugin {
     } catch (Exception e) {
       if(conn != null) {
         conn.close();
-        e.printStackTrace();
-        callbackContext.error("unable to print");
       }
+       e.printStackTrace();
+       callbackContext.error("unable to print");
     }
 
     Runnable progressRunnable = new Runnable() {
